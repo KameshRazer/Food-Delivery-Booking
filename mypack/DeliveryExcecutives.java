@@ -19,6 +19,7 @@ public class DeliveryExcecutives {
         this.delExId = this.delExId + i;
     }
 
+    //Return Available Excecutives list and their current Earning
     public void availableExcecutives(FileWriter fileWriter){
         try{
             fileWriter.write(delExId+"\t\t\t\t\t\t"+deliveryCharge+"\n");
@@ -28,7 +29,7 @@ public class DeliveryExcecutives {
     }
 
     
-
+    //Assigning Excecutives
     public void assignDeliveryExcecutive(String currentLocation, String destination, String currTime, String custId){
         this.currentLocation = currentLocation;
         this.destination = destination;
@@ -39,7 +40,7 @@ public class DeliveryExcecutives {
 
     }
 
-    //Method Overloading (assignDeliverExcecutive) for handling combined orders
+    // Handling combined orders and orders count
     public boolean assignDeliveryExcecutive( int amount){   
         if(this.ordersCount< 5){
             this.deliveryCharge += amount;
@@ -62,6 +63,7 @@ public class DeliveryExcecutives {
     }
 
 
+    //Checking Previous Order Location and Time gap
     public boolean checkPreviousOrder(String location, String destPoint ,String time){
         if(currentLocation.equals(location) && destination.equals(destPoint)){
             Date currTime = stringToTime(time);
@@ -77,7 +79,7 @@ public class DeliveryExcecutives {
         }
     }
 
-
+    //Return Excecutive Activity
     public String displayExcecutiveActivity(){
         String result="";
         final String TAB = " \t\t\t\t ";
@@ -94,6 +96,7 @@ public class DeliveryExcecutives {
     
     }
 
+    //Return Excecution allowance, total earnings
     public String totalEarned(){
         final String TAB="\t\t\t\t";
         String result ="";
@@ -101,6 +104,7 @@ public class DeliveryExcecutives {
         return result;
     }
     
+    //Display Results
     public void printValues(){
         System.out.print(delExId+" || ");
         System.out.print(customerId+" || ");
