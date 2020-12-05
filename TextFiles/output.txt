@@ -1,0 +1,45 @@
+Booking Id : 1
+Available Excecutives:
+DE			0
+DE			0
+DE			0
+DE			0
+DE			0
+Allotted Delivery Executive : DE1
+-----------------------------------------
+
+Booking Id : 2
+Available Excecutives:
+DE1			50
+DE			0
+DE			0
+DE			0
+DE			0
+Allotted Delivery Executive : DE2
+-----------------------------------------
+
+Booking Id : 3
+Available Excecutives:
+DE1			50
+DE2			50
+DE			0
+DE			0
+DE			0
+Allotted Delivery Executive : DE2 (because same location within 15 minutes)
+-----------------------------------------
+
+Booking Id : 3
+Available Excecutives:
+DE1			50
+DE2			55
+DE			0
+DE			0
+DE			0
+Allotted Delivery Executive : DE3
+-----------------------------------------
+
+Delivery History 
+Available Excecutives:
+DE1 		 A 		 D 		 1 		 09:15 		 09:45 		 50
+DE2 		 B 		 A 		 2 		 10:15 		 10:45 		 55
+DE3 		 D 		 C 		 1 		 10:50 		 11:20 		 50

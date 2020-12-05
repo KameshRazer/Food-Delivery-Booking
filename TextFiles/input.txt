@@ -1,0 +1,20 @@
+Customer ID: 1
+Restaurant: A
+Destination Point: D
+Time: 9.00 AM
+---------------------
+Customer ID: 2
+Restaurant: B
+Destination Point: A
+Time: 10.00 AM
+----------------------
+Customer ID: 3
+Restaurant: B
+Destination Point: A
+Time: 10.10 AM
+-----------------------
+Customer ID: 3
+Restaurant: D
+Destination Point: C
+Time: 10.35 AM
+-----------------------
