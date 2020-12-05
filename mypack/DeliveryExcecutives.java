@@ -15,10 +15,13 @@ public class DeliveryExcecutives {
     int deliveryCharge = 0;
 
 
+    public DeliveryExcecutives(int i){
+        this.delExId = this.delExId + i;
+    }
+
     public void availableExcecutives(FileWriter fileWriter){
-        
         try{
-            fileWriter.write(delExId+"\t\t\t"+deliveryCharge+"\n");
+            fileWriter.write(delExId+"\t\t\t\t\t\t"+deliveryCharge+"\n");
         }catch(IOException e){
             System.out.println("IO Error : "+e.getMessage());
         }
@@ -26,8 +29,7 @@ public class DeliveryExcecutives {
 
     
 
-    public void assignDeliveryExcecutive(int delExId, String currentLocation, String destination, String currTime, String custId){
-        this.delExId += delExId;
+    public void assignDeliveryExcecutive(String currentLocation, String destination, String currTime, String custId){
         this.currentLocation = currentLocation;
         this.destination = destination;
         this.customerId = custId;
@@ -78,7 +80,7 @@ public class DeliveryExcecutives {
 
     public String displayExcecutiveActivity(){
         String result="";
-        final String TAB = " \t\t ";
+        final String TAB = " \t\t\t\t ";
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
         Date deliveryTime = (Date) this.pickUpTime.clone();
@@ -91,6 +93,14 @@ public class DeliveryExcecutives {
         return result;
     
     }
+
+    public String totalEarned(){
+        final String TAB="\t\t\t\t";
+        String result ="";
+        result = delExId+ TAB +"10"+ TAB +deliveryCharge+ TAB + (deliveryCharge+10);
+        return result;
+    }
+    
     public void printValues(){
         System.out.print(delExId+" || ");
         System.out.print(customerId+" || ");

@@ -23,7 +23,7 @@ class MainClass{
 
         if(!result){
             if((id+1) < numberOfExcecutive){
-                delEx[id++].assignDeliveryExcecutive(id, currentLocation, destination, orderTime, custId);
+                delEx[id++].assignDeliveryExcecutive(currentLocation, destination, orderTime, custId);
                 assignedDelExceID ="DE"+ id;
             }else
                 System.out.println("Delivery Excecutives UnAvailable");                
@@ -35,7 +35,7 @@ class MainClass{
     public static void main(String[] args){
         
         for(int i=0; i<numberOfExcecutive; i++)
-            delEx[i] = new DeliveryExcecutives();
+            delEx[i] = new DeliveryExcecutives(i+1);
 
         try{
             File inputFile = new File("TextFiles/input.txt");
@@ -57,7 +57,8 @@ class MainClass{
                 try{
                     FileWriter fileWriter = new FileWriter("TextFiles/output.txt",true);
                     fileWriter.write("Booking Id : "+custId+"\n");
-                    fileWriter.write("Available Excecutives:\n");
+                    fileWriter.write("Available Excecutives:\n\n");
+                    fileWriter.write("Excecutives \t\t Delivery Charge Earned\n");
                     for(int i=0; i<numberOfExcecutive; i++ )
                         delEx[i].availableExcecutives(fileWriter);
                     
@@ -68,29 +69,30 @@ class MainClass{
                     fileWriter.close();
                 }catch(IOException e){
                     System.out.println("IO Error : "+e.getMessage());
-                }
-                
-                
-                
+                }   
             }
             inputReader.close();
         }catch(FileNotFoundException e){
             System.out.println("File not found");
         }
 
-        System.out.println("\n\n Output");
-        for(int i=0; i<id;i++)
-            delEx[i].displayExcecutiveActivity();
-
         try{
+            //Writing Delivery History in Output.txt file
+
             FileWriter fileWriter = new FileWriter("TextFiles/output.txt",true);
             fileWriter.write("Delivery History \n");
-            fileWriter.write("Available Excecutives:\n");
+            fileWriter.write("TRIP\tEXCECUTIVE\t   RESTAURANT\t  DESTINATION POINT\t   ORDERS\t     PICK-UP TIME\t   DELIVERY TIME\t     DELIVERY CHARGES\n");
             for(int i=0; i<id; i++ ){
                 String result = delEx[i].displayExcecutiveActivity();
-                fileWriter.write(result+"\n");
+                fileWriter.write((i+1)+"\t\t"+result+"\n");
             }
 
+            fileWriter.write("\nTotal Earned\n");
+            fileWriter.write("Excecutive\t Allowance\t Deliver Charges\t Total\n");
+            for(int i=0; i<id; i++){
+                String result = delEx[i].totalEarned();
+                fileWriter.write(result+"\n");
+            }
             fileWriter.close();
         }catch(IOException e){
             System.out.println("IO Error : "+e.getMessage());
