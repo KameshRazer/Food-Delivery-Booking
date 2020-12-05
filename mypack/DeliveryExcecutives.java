@@ -57,7 +57,7 @@ public class DeliveryExcecutives {
             SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
             return dateFormat.parse(time);
         }catch(Exception e){
-            System.out.println("Time Convention Error");
+            System.out.println("Time Convention Error "+e.getMessage());
             return null;
         }        
     }
@@ -104,6 +104,10 @@ public class DeliveryExcecutives {
         return result;
     }
     
+    //Return Excecutives Earning
+    public int getDeliveryCharge(){
+        return deliveryCharge;
+    }
     //Display Results
     public void printValues(){
         System.out.print(delExId+" || ");
