@@ -13,7 +13,7 @@ class MainClass{
     public static void handleBooking(String custId, String currentLocation, String destination, String orderTime){
         Boolean result = false;
 
-        //Loop is checking with Previous order and combine order
+        //Loop is checking with Previous order ,order count. If valid combine order
         for(int i=0; i<=maxAllotedId; i++ ){
             result = delEx[i].checkPreviousOrder(currentLocation, destination,orderTime);
             if(result){
@@ -47,11 +47,11 @@ class MainClass{
     }
 
 
+    //Program Excecution Starts here
     public static void main(String[] args){
         
         for(int i=0; i<numberOfExcecutive; i++)
             delEx[i] = new DeliveryExcecutives(i+1);
-        int count =0;
         try{
             File inputFile = new File("TextFiles/input.txt");
             Scanner inputReader = new Scanner(inputFile);
@@ -97,14 +97,14 @@ class MainClass{
 
             FileWriter fileWriter = new FileWriter("TextFiles/output.txt",true);
             fileWriter.write("Delivery History \n");
-            fileWriter.write("TRIP\tEXCECUTIVE\t   RESTAURANT\t  DESTINATION POINT\t   ORDERS\t     PICK-UP TIME\t   DELIVERY TIME\t     DELIVERY CHARGES\n");
+            fileWriter.write("TRIP\tEXCECUTIVE\t RESTAURANT\t  DESTINATION POINT\t ORDERS\t PICK-UP TIME\t DELIVERY TIME\t     DELIVERY CHARGES\n");
             for(int i=0; i<=maxAllotedId; i++ ){
                 String result = delEx[i].displayExcecutiveActivity();
                 fileWriter.write((i+1)+"\t\t"+result+"\n");
             }
 
             fileWriter.write("\nTotal Earned\n");
-            fileWriter.write("Excecutive\t Allowance\t Deliver Charges\t Total\n");
+            fileWriter.write("Excecutive   Allowance \t Deliver Charges \t Total\n");
             for(int i=0; i<=maxAllotedId; i++){
                 String result = delEx[i].totalEarned();
                 fileWriter.write(result+"\n");

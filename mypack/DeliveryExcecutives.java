@@ -11,6 +11,7 @@ public class DeliveryExcecutives {
     String destination = "\0";
     String customerId ="\0";
     Date pickUpTime ;
+    Date deliveryTime;
     int ordersCount = 0;
     int deliveryCharge = 0;
 
@@ -22,7 +23,7 @@ public class DeliveryExcecutives {
     //Return Available Excecutives list and their current Earning
     public void availableExcecutives(FileWriter fileWriter){
         try{
-            fileWriter.write(delExId+"\t\t\t\t\t\t"+deliveryCharge+"\n");
+            fileWriter.write(delExId+"\t\t\t\t"+deliveryCharge+"\n");
         }catch(IOException e){
             System.out.println("IO Error : "+e.getMessage());
         }
@@ -36,6 +37,8 @@ public class DeliveryExcecutives {
         this.customerId = custId;
         this.pickUpTime = stringToTime(currTime);
         this.pickUpTime.setTime(this.pickUpTime.getTime() + (15 * 60000)); //Setting pick up time to 15 mins from ordered time
+        this.deliveryTime = (Date) this.pickUpTime.clone();
+        this.deliveryTime.setTime(deliveryTime.getTime() + (30 * 6000));
         assignDeliveryExcecutive(50);
 
     }
@@ -82,23 +85,19 @@ public class DeliveryExcecutives {
     //Return Excecutive Activity
     public String displayExcecutiveActivity(){
         String result="";
-        final String TAB = " \t\t\t\t ";
+        final String TAB = " \t\t ";
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
-        Date deliveryTime = (Date) this.pickUpTime.clone();
-        deliveryTime.setTime(deliveryTime.getTime()+(30*60000));
-
-        result = this.delExId + TAB +this.currentLocation + TAB + this.destination+ TAB +this.ordersCount;
-        result = result + TAB +dateFormat.format(this.pickUpTime);
-        result = result + TAB + dateFormat.format(deliveryTime) + TAB + this.deliveryCharge;
-
+        result = delExId + TAB +currentLocation + TAB + destination+ TAB + ordersCount;
+        result = result + TAB +dateFormat.format(pickUpTime);
+        result = result + TAB + dateFormat.format(deliveryTime) + TAB + deliveryCharge;
         return result;
     
     }
 
     //Return Excecution allowance, total earnings
     public String totalEarned(){
-        final String TAB="\t\t\t\t";
+        final String TAB="\t\t";
         String result ="";
         result = delExId+ TAB +"10"+ TAB +deliveryCharge+ TAB + (deliveryCharge+10);
         return result;
