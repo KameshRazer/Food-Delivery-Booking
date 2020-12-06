@@ -15,7 +15,7 @@ public class DeliveryExcecutives {
     int ordersCount = 0;
     int deliveryCharge = 0;
 
-
+    public DeliveryExcecutives(){}
     public DeliveryExcecutives(int i){
         this.delExId = this.delExId + i;
     }
@@ -31,12 +31,12 @@ public class DeliveryExcecutives {
 
     
     //Assigning Excecutives
-    public void assignDeliveryExcecutive(String currentLocation, String destination, String currTime, String custId){
+    public void assignDeliveryExcecutive(String currentLocation, String destination, Date orderTime, String custId){
         this.currentLocation = currentLocation;
         this.destination = destination;
         this.customerId = custId;
-        this.pickUpTime = stringToTime(currTime);
-        this.pickUpTime.setTime(this.pickUpTime.getTime() + (15 * 60000)); //Setting pick up time to 15 mins from ordered time
+        this.pickUpTime = orderTime;
+        this.pickUpTime.setTime(orderTime.getTime() + (15 * 60000)); //Setting pick up time to 15 mins from ordered time
         this.deliveryTime = (Date) this.pickUpTime.clone();
         this.deliveryTime.setTime(deliveryTime.getTime() + (30 * 6000));
         assignDeliveryExcecutive(50);
@@ -54,23 +54,10 @@ public class DeliveryExcecutives {
         }
     }
 
-    //Convert String to Time
-    public Date stringToTime(String time){
-        try{
-            SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-            return dateFormat.parse(time);
-        }catch(Exception e){
-            System.out.println("Time Convention Error "+e.getMessage());
-            return null;
-        }        
-    }
-
-
     //Checking Previous Order Location and Time gap
-    public boolean checkPreviousOrder(String location, String destPoint ,String time){
+    public boolean checkPreviousOrder(String location, String destPoint ,Date orderTime){
         if(currentLocation.equals(location) && destination.equals(destPoint)){
-            Date currTime = stringToTime(time);
-            long difference = currTime.getTime() - pickUpTime.getTime();
+            long difference = orderTime.getTime() - pickUpTime.getTime();
             difference = (difference/1000)/60;
 
             if(difference>15)
@@ -101,6 +88,11 @@ public class DeliveryExcecutives {
         String result ="";
         result = delExId+ TAB +"10"+ TAB +deliveryCharge+ TAB + (deliveryCharge+10);
         return result;
+    }
+
+    public int checkTimeDifference(Date currOrderTime){
+        long difference = currOrderTime.getTime() - deliveryTime.getTime();
+        return (int)(difference/1000)/60 ;
     }
     
     //Return Excecutives Earning
