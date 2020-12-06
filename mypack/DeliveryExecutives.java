@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
-public class DeliveryExcecutives {
+public class DeliveryExecutives {
     String delExId ="DE";
     String currentLocation = "\0";
     String destination = "\0";
@@ -15,13 +15,13 @@ public class DeliveryExcecutives {
     int ordersCount = 0;
     int deliveryCharge = 0;
 
-    public DeliveryExcecutives(){}
-    public DeliveryExcecutives(int i){
+    public DeliveryExecutives(){}
+    public DeliveryExecutives(int i){
         this.delExId = this.delExId + i;
     }
 
-    //Return Available Excecutives list and their current Earning
-    public void availableExcecutives(FileWriter fileWriter){
+    //Return Available Executives list and their current Earning
+    public void availableExecutives(FileWriter fileWriter){
         try{
             fileWriter.write(delExId+"\t\t\t\t"+deliveryCharge+"\n");
         }catch(IOException e){
@@ -30,8 +30,8 @@ public class DeliveryExcecutives {
     }
 
     
-    //Assigning Excecutives
-    public void assignDeliveryExcecutive(String currentLocation, String destination, Date orderTime, String custId){
+    //Assigning Executives
+    public void assignDeliveryExecutive(String currentLocation, String destination, Date orderTime, String custId){
         this.currentLocation = currentLocation;
         this.destination = destination;
         this.customerId = custId;
@@ -39,12 +39,12 @@ public class DeliveryExcecutives {
         this.pickUpTime.setTime(orderTime.getTime() + (15 * 60000)); //Setting pick up time to 15 mins from ordered time
         this.deliveryTime = (Date) this.pickUpTime.clone();
         this.deliveryTime.setTime(deliveryTime.getTime() + (30 * 6000));
-        assignDeliveryExcecutive(50);
+        assignDeliveryExecutive(50);
 
     }
 
     // Handling combined orders and orders count
-    public boolean assignDeliveryExcecutive( int amount){   
+    public boolean assignDeliveryExecutive( int amount){   
         if(this.ordersCount< 5){
             this.deliveryCharge += amount;
             this.ordersCount += 1;
@@ -69,8 +69,8 @@ public class DeliveryExcecutives {
         }
     }
 
-    //Return Excecutive Activity
-    public String displayExcecutiveActivity(){
+    //Return Executive Activity
+    public String displayExecutiveActivity(){
         String result="";
         final String TAB = " \t\t ";
 
@@ -95,7 +95,7 @@ public class DeliveryExcecutives {
         return (int)(difference/1000)/60 ;
     }
     
-    //Return Excecutives Earning
+    //Return Executives Earning
     public int getDeliveryCharge(){
         return deliveryCharge;
     }

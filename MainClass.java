@@ -5,8 +5,8 @@ import java.text.SimpleDateFormat;
 
 
 class MainClass{
-    public static int numberOfExcecutive = 5 ;
-    public static DeliveryExcecutives[] delEx = new DeliveryExcecutives[numberOfExcecutive];
+    public static int numberOfExecutive = 5 ;
+    public static DeliveryExecutives[] delEx = new DeliveryExecutives[numberOfExecutive];
     public static int id =0;
     public static String assignedDelExceID ="";
     public static int maxAllotedId=-1;
@@ -17,7 +17,7 @@ class MainClass{
         for(int i=0; i<=maxAllotedId; i++ ){
             result = delEx[i].checkPreviousOrder(currentLocation, destination,orderTime);
             if(result){
-                result = delEx[i].assignDeliveryExcecutive(5);
+                result = delEx[i].assignDeliveryExecutive(5);
                 assignedDelExceID ="DE"+ (i+1) + " (because same location within 15 minutes)";
                 break;
             }
@@ -25,8 +25,8 @@ class MainClass{
 
         //Not matched with Previous order Assign new Excecutive if Possible
         if(!result){
-            if(id < numberOfExcecutive){
-                delEx[id].assignDeliveryExcecutive(currentLocation, destination, orderTime, custId);
+            if(id < numberOfExecutive){
+                delEx[id].assignDeliveryExecutive(currentLocation, destination, orderTime, custId);
                 maxAllotedId = id;
                 id++;
                 assignedDelExceID ="DE"+ (id);
@@ -39,10 +39,10 @@ class MainClass{
                         availableExcecutiveId.add(i);
                     }
                 }
-                //Display All Excecutives are busy
+                //Display All Executives are busy
                 if(availableExcecutiveId.isEmpty()){
-                    System.out.println("Delivery Excecutives are Busy");
-                    assignedDelExceID = "Delivery Excecutives are Busy";
+                    System.out.println("Delivery Executives Not Available");
+                    assignedDelExceID = "Delivery Executives Not Available";
                 }else{
                     //Finding Excecutive who has least delivery charge
                     int leastId = availableExcecutiveId.get(0);
@@ -52,7 +52,7 @@ class MainClass{
                         }
                     }
                     //Assign order to least Delivery Excecutive
-                    delEx[leastId].assignDeliveryExcecutive(currentLocation, destination, orderTime, custId);
+                    delEx[leastId].assignDeliveryExecutive(currentLocation, destination, orderTime, custId);
                     assignedDelExceID ="DE"+ (leastId+1);
                 }
                 
@@ -67,9 +67,9 @@ class MainClass{
     //Program Excecution Starts here
     public static void main(String[] args){
         
-        //Creating number of Delivery Excecutives
-        for(int i=0; i<numberOfExcecutive; i++)
-            delEx[i] = new DeliveryExcecutives(i+1);
+        //Creating number of Delivery Executives
+        for(int i=0; i<numberOfExecutive; i++)
+            delEx[i] = new DeliveryExecutives(i+1);
 
         try{
             File inputFile = new File("TextFiles/input.txt");
@@ -92,10 +92,10 @@ class MainClass{
                 try{
                     FileWriter fileWriter = new FileWriter("TextFiles/output.txt",true);
                     fileWriter.write("Booking Id : "+custId+"\n");
-                    fileWriter.write("Available Excecutives:\n\n");
-                    fileWriter.write("Excecutives \t\t Delivery Charge Earned\n");
-                    for(int i=0; i<numberOfExcecutive; i++ )
-                        delEx[i].availableExcecutives(fileWriter);
+                    fileWriter.write("Available Executives:\n\n");
+                    fileWriter.write("Executives \t\t Delivery Charge Earned\n");
+                    for(int i=0; i<numberOfExecutive; i++ )
+                        delEx[i].availableExecutives(fileWriter);
                     
                     Date orderTime = stringToTime(time);
                     handleBooking(custId,restaurant,destPoint,orderTime);
@@ -118,7 +118,7 @@ class MainClass{
             fileWriter.write("Delivery History \n");
             fileWriter.write("TRIP\tEXCECUTIVE\t RESTAURANT\t  DESTINATION POINT\t ORDERS\t PICK-UP TIME\t DELIVERY TIME\t     DELIVERY CHARGES\n");
             for(int i=0; i<=maxAllotedId; i++ ){
-                String result = delEx[i].displayExcecutiveActivity();
+                String result = delEx[i].displayExecutiveActivity();
                 fileWriter.write((i+1)+"\t\t"+result+"\n");
             }
 
